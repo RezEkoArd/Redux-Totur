@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPosts, addPosts } from './actions/postsSlice';
 import './App.css';
 
 function App() {
+  const dispatch = useDispatch();
+  const {posts} = useSelector(state => state.posts)
+  console.log(posts)
+
+  useEffect(() => {
+    dispatch(getPosts())
+  },[getPosts])
+
+  const addPost = (data) => {
+    dispatch(addPosts(data))
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello World</h1>
+      <button onClick={() => addPost({title:"webreq" , body: "hello", userId: 1})}>add post </button>
     </div>
   );
 }
